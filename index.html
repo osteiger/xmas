@@ -1,11 +1,270 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Hello World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frohe Weihnachten!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Georgia', serif;
+        background: linear-gradient(135deg, #1a472a 0%, #2d5f3f 50%, #0f2818 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow-x: hidden;
+    }
+
+    /* Schneeflocken Animation */
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 1em;
+        opacity: 0.8;
+        animation: fall linear infinite;
+        z-index: 1;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(100vh) rotate(360deg);
+        }
+    }
+
+    .container {
+        max-width: 900px;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+    }
+
+    .card {
+        background: white;
+        border-radius: 20px;
+        padding: 50px 40px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+        animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+        0%, 100% { transform: rotate(0deg); }
+        50% { transform: rotate(180deg); }
+    }
+
+    .ornament {
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        color: #c41e3a;
+        font-size: 3em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .message {
+        color: #2d5f3f;
+        font-size: 1.3em;
+        line-height: 1.8;
+        margin: 30px 0;
+        font-style: italic;
+    }
+
+    .tree {
+        font-size: 5em;
+        margin: 20px 0;
+        animation: sway 3s ease-in-out infinite;
+    }
+
+    @keyframes sway {
+        0%, 100% { transform: rotate(-2deg); }
+        50% { transform: rotate(2deg); }
+    }
+
+    .signature {
+        color: #666;
+        font-size: 1.2em;
+        margin-top: 30px;
+        font-family: 'Brush Script MT', cursive;
+    }
+
+    .qr-section {
+        margin-top: 40px;
+        padding-top: 40px;
+        border-top: 2px dashed #d4af37;
+    }
+
+    .qr-title {
+        color: #2d5f3f;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    #qrcode {
+        display: inline-block;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .qr-info {
+        margin-top: 20px;
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    button {
+        background: #c41e3a;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 1.1em;
+        border-radius: 25px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 10px rgba(196,30,58,0.3);
+    }
+
+    button:hover {
+        background: #a01729;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(196,30,58,0.4);
+    }
+
+    .input-group {
+        margin: 20px 0;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 1em;
+        border: 2px solid #2d5f3f;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #2d5f3f;
+        font-weight: bold;
+    }
+</style>
+```
+
 </head>
 <body>
-    <h1>Hello World 👋</h1>
-    <p>Diese Webseite wird über GitHub Pages veröffentlicht.</p>
+    <div class="container">
+        <div class="card">
+            <div class="ornament">🎄</div>
+            <h1>Frohe Weihnachten!</h1>
+
+```
+        <div class="tree">🎄</div>
+        
+        <div class="message">
+            Wir wünschen dir besinnliche Feiertage,<br>
+            Zeit mit deinen Liebsten und<br>
+            einen guten Rutsch ins neue Jahr!<br>
+            Mögen all deine Wünsche in Erfüllung gehen.
+        </div>
+        
+        <div class="ornament">⭐ ❄️ 🎁 ❄️ ⭐</div>
+        
+        <div class="signature">
+            Mit herzlichen Grüßen<br>
+            Deine Familie/Freunde
+        </div>
+
+        <div class="qr-section">
+            <div class="qr-title">📱 QR-Code Generator</div>
+            <div class="input-group">
+                <label for="urlInput">Gib die URL deiner gehosteten Karte ein:</label>
+                <input type="text" id="urlInput" placeholder="https://deine-webseite.de/weihnachtskarte">
+            </div>
+            <button onclick="generateQR()">QR-Code generieren</button>
+            
+            <div id="qrcode" style="margin-top: 20px;"></div>
+            <div class="qr-info">
+                Scanne diesen QR-Code, um die Weihnachtskarte anzuzeigen!
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Schneeflocken erstellen
+    function createSnowflakes() {
+        for (let i = 0; i < 50; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.animationDelay = Math.random() * 5 + 's';
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            document.body.appendChild(snowflake);
+        }
+    }
+
+    createSnowflakes();
+
+    let qrGenerated = false;
+
+    function generateQR() {
+        const url = document.getElementById('urlInput').value || window.location.href;
+        const qrcodeDiv = document.getElementById('qrcode');
+        
+        if (qrGenerated) {
+            qrcodeDiv.innerHTML = '';
+        }
+        
+        new QRCode(qrcodeDiv, {
+            text: url,
+            width: 200,
+            height: 200,
+            colorDark: "#2d5f3f",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        
+        qrGenerated = true;
+    }
+
+    // Automatisch QR-Code für aktuelle Seite generieren
+    window.addEventListener('load', function() {
+        setTimeout(generateQR, 500);
+    });
+</script>
+```
+
 </body>
 </html>
