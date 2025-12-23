@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frohe Weihnachten!</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -16,253 +15,283 @@
 ```
     body {
         font-family: 'Georgia', serif;
-        background: linear-gradient(135deg, #1a472a 0%, #2d5f3f 50%, #0f2818 100%);
+        background: #F5DEB3;
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 20px;
-        overflow-x: hidden;
-    }
-
-    /* Schneeflocken Animation */
-    .snowflake {
-        position: fixed;
-        top: -10px;
-        color: white;
-        font-size: 1em;
-        opacity: 0.8;
-        animation: fall linear infinite;
-        z-index: 1;
-    }
-
-    @keyframes fall {
-        to {
-            transform: translateY(100vh) rotate(360deg);
-        }
-    }
-
-    .container {
-        max-width: 900px;
-        width: 100%;
-        position: relative;
-        z-index: 10;
-    }
-
-    .card {
-        background: white;
-        border-radius: 20px;
-        padding: 50px 40px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        text-align: center;
-        position: relative;
         overflow: hidden;
     }
 
-    .card::before {
-        content: '';
+
+
+    .store-container {
+        position: relative;
+        width: 600px;
+        height: 700px;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Laden Fassade */
+    .store-front {
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
-        animation: shimmer 3s infinite;
-    }
-
-    @keyframes shimmer {
-        0%, 100% { transform: rotate(0deg); }
-        50% { transform: rotate(180deg); }
-    }
-
-    .ornament {
-        font-size: 3em;
-        margin-bottom: 20px;
-    }
-
-    h1 {
-        color: #c41e3a;
-        font-size: 3em;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .message {
-        color: #2d5f3f;
-        font-size: 1.3em;
-        line-height: 1.8;
-        margin: 30px 0;
-        font-style: italic;
-    }
-
-    .tree {
-        font-size: 5em;
-        margin: 20px 0;
-        animation: sway 3s ease-in-out infinite;
-    }
-
-    @keyframes sway {
-        0%, 100% { transform: rotate(-2deg); }
-        50% { transform: rotate(2deg); }
-    }
-
-    .signature {
-        color: #666;
-        font-size: 1.2em;
-        margin-top: 30px;
-        font-family: 'Brush Script MT', cursive;
-    }
-
-    .qr-section {
-        margin-top: 40px;
-        padding-top: 40px;
-        border-top: 2px dashed #d4af37;
-    }
-
-    .qr-title {
-        color: #2d5f3f;
-        font-size: 1.5em;
-        margin-bottom: 20px;
-    }
-
-    #qrcode {
-        display: inline-block;
-        padding: 20px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .qr-info {
-        margin-top: 20px;
-        color: #666;
-        font-size: 0.9em;
-    }
-
-    button {
-        background: #c41e3a;
-        color: white;
-        border: none;
-        padding: 12px 30px;
-        font-size: 1.1em;
-        border-radius: 25px;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: all 0.3s;
-        box-shadow: 0 4px 10px rgba(196,30,58,0.3);
-    }
-
-    button:hover {
-        background: #a01729;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(196,30,58,0.4);
-    }
-
-    .input-group {
-        margin: 20px 0;
-    }
-
-    input {
-        padding: 10px;
-        font-size: 1em;
-        border: 2px solid #2d5f3f;
-        border-radius: 5px;
         width: 100%;
-        max-width: 400px;
+        height: 100%;
+        background: transparent;
     }
 
-    label {
-        display: block;
-        margin-bottom: 10px;
-        color: #2d5f3f;
+
+
+    /* Türrahmen */
+    .door-frame {
+        position: relative;
+        width: 400px;
+        height: 500px;
+        perspective: 1000px;
+    }
+
+    /* Linke Türhälfte */
+    .door-left, .door-right {
+        position: absolute;
+        bottom: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, #3E2723 0%, #4E342E 50%, #3E2723 100%);
+        border: 8px solid #5D4037;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        transition: transform 2s ease-in-out;
+        transform-origin: center;
+    }
+
+    .door-left {
+        left: 0;
+        border-radius: 10px 0 0 0;
+        transform-origin: left center;
+    }
+
+    .door-right {
+        right: 0;
+        border-radius: 0 10px 0 0;
+        transform-origin: right center;
+    }
+
+    /* Türen öffnen Animation */
+    .door-left.open {
+        transform: rotateY(-120deg);
+    }
+
+    .door-right.open {
+        transform: rotateY(120deg);
+    }
+
+    /* Türgriffe */
+    .door-handle {
+        position: absolute;
+        top: 50%;
+        width: 30px;
+        height: 12px;
+        background: #FFD700;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .door-left .door-handle {
+        right: 20px;
+    }
+
+    .door-right .door-handle {
+        left: 20px;
+    }
+
+    /* Türfenster */
+    .door-window {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 150px;
+        background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+        border: 8px solid #5D4037;
+        border-radius: 10px;
+        opacity: 0.7;
+    }
+
+    .window-cross {
+        position: absolute;
+        background: #5D4037;
+    }
+
+    .window-cross.horizontal {
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        transform: translateY(-50%);
+    }
+
+    .window-cross.vertical {
+        left: 50%;
+        top: 0;
+        width: 8px;
+        height: 100%;
+        transform: translateX(-50%);
+    }
+
+    /* Innenraum mit Schild */
+    .inside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: -1;
+    }
+
+    .sign {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        background: #c41e3a;
+        transform: scale(0) rotate(45deg);
+        opacity: 0;
+        animation: signAppear 1s ease-out 2s forwards;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .sign::before,
+    .sign::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: #c41e3a;
+        border-radius: 50%;
+    }
+    
+    .sign::before {
+        top: -100px;
+        left: 0;
+    }
+    
+    .sign::after {
+        top: 0;
+        left: -100px;
+    }
+
+    @keyframes signAppear {
+        to {
+            transform: scale(1) rotate(45deg);
+            opacity: 1;
+        }
+    }
+
+    .sign-text {
+        font-size: 1.6em;
+        color: white;
+        text-align: center;
         font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        line-height: 1.3;
+        transform: rotate(-45deg);
+        z-index: 10;
+        position: relative;
+        padding: 20px;
+    }
+
+
+
+    /* Click Hinweis */
+    .click-hint {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 1.2em;
+        text-align: center;
+        animation: pulse 2s infinite;
+        cursor: pointer;
+        background: rgba(0,0,0,0.3);
+        padding: 15px 30px;
+        border-radius: 30px;
+        z-index: 100;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    .click-hint.hidden {
+        display: none;
     }
 </style>
 ```
 
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="ornament">🎄</div>
-            <h1>Frohe Weihnachten!</h1>
+    <div class="store-container">
+        <div class="store-front">
+            <div class="inside">
+                <div class="sign">
+                    <div class="sign-text">
+                        Alles Liebe<br>
+                        zu Weihnachten!
+                    </div>
+                </div>
+            </div>
 
 ```
-        <div class="tree">🎄</div>
-        
-        <div class="message">
-            Wir wünschen dir besinnliche Feiertage,<br>
-            Zeit mit deinen Liebsten und<br>
-            einen guten Rutsch ins neue Jahr!<br>
-            Mögen all deine Wünsche in Erfüllung gehen.
-        </div>
-        
-        <div class="ornament">⭐ ❄️ 🎁 ❄️ ⭐</div>
-        
-        <div class="signature">
-            Mit herzlichen Grüßen<br>
-            Deine Familie/Freunde
-        </div>
-
-        <div class="qr-section">
-            <div class="qr-title">📱 QR-Code Generator</div>
-            <div class="input-group">
-                <label for="urlInput">Gib die URL deiner gehosteten Karte ein:</label>
-                <input type="text" id="urlInput" placeholder="https://deine-webseite.de/weihnachtskarte">
+        <div class="door-frame">
+            <div class="door-left" id="doorLeft">
+                <div class="door-window">
+                    <div class="window-cross horizontal"></div>
+                    <div class="window-cross vertical"></div>
+                </div>
+                <div class="door-handle"></div>
             </div>
-            <button onclick="generateQR()">QR-Code generieren</button>
-            
-            <div id="qrcode" style="margin-top: 20px;"></div>
-            <div class="qr-info">
-                Scanne diesen QR-Code, um die Weihnachtskarte anzuzeigen!
+            <div class="door-right" id="doorRight">
+                <div class="door-window">
+                    <div class="window-cross horizontal"></div>
+                    <div class="window-cross vertical"></div>
+                </div>
+                <div class="door-handle"></div>
             </div>
         </div>
+    </div>
+    
+    <div class="click-hint" id="clickHint" onclick="openDoors()">
+        👆 Klicke hier, um die Tür zu öffnen
     </div>
 </div>
 
 <script>
-    // Schneeflocken erstellen
-    function createSnowflakes() {
-        for (let i = 0; i < 50; i++) {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            snowflake.innerHTML = '❄';
-            snowflake.style.left = Math.random() * 100 + '%';
-            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-            snowflake.style.animationDelay = Math.random() * 5 + 's';
-            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-            document.body.appendChild(snowflake);
+    let doorsOpened = false;
+
+    function openDoors() {
+        if (!doorsOpened) {
+            document.getElementById('doorLeft').classList.add('open');
+            document.getElementById('doorRight').classList.add('open');
+            document.getElementById('clickHint').classList.add('hidden');
+            doorsOpened = true;
         }
     }
 
-    createSnowflakes();
-
-    let qrGenerated = false;
-
-    function generateQR() {
-        const url = document.getElementById('urlInput').value || window.location.href;
-        const qrcodeDiv = document.getElementById('qrcode');
-        
-        if (qrGenerated) {
-            qrcodeDiv.innerHTML = '';
-        }
-        
-        new QRCode(qrcodeDiv, {
-            text: url,
-            width: 200,
-            height: 200,
-            colorDark: "#2d5f3f",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-        
-        qrGenerated = true;
-    }
-
-    // Automatisch QR-Code für aktuelle Seite generieren
-    window.addEventListener('load', function() {
-        setTimeout(generateQR, 500);
-    });
+    // Automatisch nach 1 Sekunde öffnen
+    setTimeout(openDoors, 1000);
 </script>
 ```
 
